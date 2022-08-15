@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.domain.Sort;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -31,27 +29,16 @@ public class FundamentosApplication implements CommandLineRunner {
     private MyBeanWithProperties myBeanWithProperties;
     private UserPojo userPojo;
     private UserRepository userRepository;
-    private UserService userService;
+    //private UserService userService;
 
-    //@Autowired ya no es nesesario
-	/* CON UNA IMPLEMENTACION
-	* public FundamentosApplication(ComponentDependency componentDependency) {
-		this.componentDependency = componentDependency;
-	}
-	//CON DOS IMPLEMENTACIONS
-public FundamentosApplication(@Qualifier("componentTwoImplement") ComponentDependency componentDependency) {
-	this.componentDependency = componentDependency;
-}
-	* */
-    //CON 2 IMPLEMENTACIONS
-    public FundamentosApplication(@Qualifier("componentTwoImplement") ComponentDependency componentDependency, MyBean myBean, MyBeanWithDependency myBeanWithDependency, MyBeanWithProperties myBeanWithProperties, UserPojo userPojo, UserRepository userRepository, UserService userService) {
+    public FundamentosApplication(@Qualifier("componentTwoImplement") ComponentDependency componentDependency, MyBean myBean, MyBeanWithDependency myBeanWithDependency, MyBeanWithProperties myBeanWithProperties, UserPojo userPojo, UserRepository userRepository) {
         this.componentDependency = componentDependency;
         this.myBean = myBean;
         this.myBeanWithDependency = myBeanWithDependency;
         this.myBeanWithProperties = myBeanWithProperties;
         this.userPojo = userPojo;
         this.userRepository = userRepository;
-        this.userService =userService;
+        //this.userService =userService;
     }
 
 
@@ -64,9 +51,10 @@ public FundamentosApplication(@Qualifier("componentTwoImplement") ComponentDepen
         //ejemplosAteriores();
         saveUserInDataBase();
         getInformationJpqlFromUser();
-        saveWithErrorTransactional();
+        //saveWithErrorTransactional();
     }
-    private void saveWithErrorTransactional() {
+    /*
+    *private void saveWithErrorTransactional() {
         User test1 = new User("TestTransactional1", "TestTransactional1@domain.com", LocalDate.now());
         User test2 = new User("TestTransactional2", "TestTransactional2@domain.com", LocalDate.now());
        // User test3 = new User("TestTransactional3", null, LocalDate.now());
@@ -86,43 +74,17 @@ public FundamentosApplication(@Qualifier("componentTwoImplement") ComponentDepen
                 .forEach(user -> LOGGER.info("esste usuario dentro del metodo transaccional "+ user));
         //getUsers();
     }
+    * */
+
     /*** este metodo tiene todas las consultas slq instaciada */
     private void getInformationJpqlFromUser() {
- /*
-        //userRepository.findByUserEmail("roman@gmail.com");
-        LOGGER.info("usuario con el findByUserEmail " +
-                userRepository.findByUserEmail("Test4@domain.com")
-                        .orElseThrow(() -> new RuntimeException("No se encontro el usuario")));
 
-        userRepository.findByAndSort("user", Sort.by("id").descending())
-                .stream()
-                .forEach(user -> LOGGER.info("usuario con metod sort" + user));
-        userRepository.findByName("John")
-                .stream()
-                .forEach(user -> LOGGER.info("Usuario con query method " + user));
-
-        LOGGER.info("Usuario con query method findByEmailAndName " + userRepository.findByEmailAndName("daniela@domain.com", "Daniela")
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado")));
-        userRepository.findByNameLike("%J%")
-                .stream()
-                .forEach(user -> LOGGER.info("usuario findByNameLike " + user));
-        userRepository.findByNameOrEmail("user10", null)
-                .stream()
-                .forEach(user -> LOGGER.info("usuario findByNameOrEmail " + user));
-*/
         userRepository.findByBirthDateBetween(LocalDate.of(2021, 03, 15), LocalDate.of(2021, 03, 25))
                 .stream()
                 .forEach(user -> LOGGER.info("User with method findByBirthDateBetween:" + user));
         userRepository.findByNameLikeOrderByIdDesc("%user%")
                 .stream()
                 .forEach(user -> LOGGER.info("User with method findByNameLikeOrderByIdDesc:" + user));
-/*
-*
-*   LOGGER.info("el usuario a partir del named parameter es: "
-               + userRepository.getAllByBirthDateAndEmail(LocalDate.of(2021, 03, 25),"daniela@domain.com")
-               .orElseThrow(()->new RuntimeException("No se encontro el usuario a partir del name parameter")));
-
-* */
 
 
     }
@@ -151,9 +113,7 @@ public FundamentosApplication(@Qualifier("componentTwoImplement") ComponentDepen
         myBeanWithDependency.printWithDependency();
         System.out.println(myBeanWithProperties.function());
         System.out.println(userPojo.getEmail() + " " + userPojo.getPassword());
-        //LOGGER.error("esto es un error del aplicativo");
         try {
-            //error
             int value = 10 / 0;
             LOGGER.debug("Mi valor: " + value);
         } catch (Exception e) {
