@@ -29,16 +29,16 @@ public class FundamentosApplication implements CommandLineRunner {
     private MyBeanWithProperties myBeanWithProperties;
     private UserPojo userPojo;
     private UserRepository userRepository;
-    //private UserService userService;
+    private UserService userService;
 
-    public FundamentosApplication(@Qualifier("componentTwoImplement") ComponentDependency componentDependency, MyBean myBean, MyBeanWithDependency myBeanWithDependency, MyBeanWithProperties myBeanWithProperties, UserPojo userPojo, UserRepository userRepository) {
+    public FundamentosApplication(@Qualifier("componentTwoImplement") ComponentDependency componentDependency, MyBean myBean,UserService userService, MyBeanWithDependency myBeanWithDependency, MyBeanWithProperties myBeanWithProperties, UserPojo userPojo, UserRepository userRepository) {
         this.componentDependency = componentDependency;
         this.myBean = myBean;
         this.myBeanWithDependency = myBeanWithDependency;
         this.myBeanWithProperties = myBeanWithProperties;
         this.userPojo = userPojo;
         this.userRepository = userRepository;
-        //this.userService =userService;
+        this.userService =userService;
     }
 
 
@@ -53,28 +53,7 @@ public class FundamentosApplication implements CommandLineRunner {
         getInformationJpqlFromUser();
         //saveWithErrorTransactional();
     }
-    /*
-    *private void saveWithErrorTransactional() {
-        User test1 = new User("TestTransactional1", "TestTransactional1@domain.com", LocalDate.now());
-        User test2 = new User("TestTransactional2", "TestTransactional2@domain.com", LocalDate.now());
-       // User test3 = new User("TestTransactional3", null, LocalDate.now());
-//        User test3 = new User("TestTransactional3", "TestTransactional4@domain.com", LocalDate.now()); //ejemplo dos
-        User test4 = new User("TestTransactional4", "TestTransactional4@domain.com", LocalDate.now());
-        List<User> users = Arrays.asList(test1, test2, test4);
 
-        try {
-          //  userService.save(users);
-            userService.saveTransactional(users);
-           // users.stream().forEach(user -> LOGGER.info("Mi usuario registrado " + user.toString()));
-        } catch (Exception e) {
-            LOGGER.error("Estp es una excepcion dentro del metodo transaccional "+e);
-            //LOGGER.error(e.getMessage());
-        }
-        userService.getAllUsers().stream()
-                .forEach(user -> LOGGER.info("esste usuario dentro del metodo transaccional "+ user));
-        //getUsers();
-    }
-    * */
 
     /*** este metodo tiene todas las consultas slq instaciada */
     private void getInformationJpqlFromUser() {
