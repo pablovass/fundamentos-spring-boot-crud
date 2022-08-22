@@ -3,10 +3,10 @@ package com.pablovass.fundamentos.caseuse;
 import org.springframework.stereotype.Component;
 
 @Component
-public class UpdateUser {
+public class DeleteUser {
     private UserService userService;
 
-    public UpdateUser(UserService userService) {
+    public DeleteUser(UserService userService) {
         this.userService = userService;
     }
 

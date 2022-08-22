@@ -7,7 +7,6 @@ import com.pablovass.fundamentos.configuration.MyBeanWithProperties;
 import com.pablovass.fundamentos.entity.User;
 import com.pablovass.fundamentos.pojo.UserPojo;
 import com.pablovass.fundamentos.repository.UserRepository;
-import com.pablovass.fundamentos.service.UserService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -18,7 +17,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.Function;
 
 @SpringBootApplication
 public class FundamentosApplication implements CommandLineRunner {

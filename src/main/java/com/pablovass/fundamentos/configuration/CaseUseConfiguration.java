@@ -2,7 +2,6 @@ package com.pablovass.fundamentos.configuration;
 
 import com.pablovass.fundamentos.caseuse.GetUser;
 import com.pablovass.fundamentos.caseuse.GetUserImplement;
-import com.pablovass.fundamentos.service.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
