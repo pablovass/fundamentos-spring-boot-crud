@@ -1,5 +1,6 @@
 package com.pablovass.fundamentos.caseuse;
 
+import com.pablovass.fundamentos.service.UserService;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -10,4 +11,7 @@ public class DeleteUser {
         this.userService = userService;
     }
 
+    public void remove(Long id) {
+        userService.delete(id);
+    }
 }

@@ -1,5 +1,8 @@
 package com.pablovass.fundamentos.caseuse;
 
+import com.pablovass.fundamentos.entity.User;
+import com.pablovass.fundamentos.service.UserService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -10,4 +13,8 @@ public class UpdateUser {
         this.userService = userService;
     }
 
+    public User update(User newUser, Long id) {
+        return  userService.update(newUser,id);
+
+    }
 }

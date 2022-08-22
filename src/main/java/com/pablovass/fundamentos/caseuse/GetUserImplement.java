@@ -1,6 +1,7 @@
 package com.pablovass.fundamentos.caseuse;
 
 import com.pablovass.fundamentos.entity.User;
+import com.pablovass.fundamentos.service.UserService;
 
 import java.util.List;
 
