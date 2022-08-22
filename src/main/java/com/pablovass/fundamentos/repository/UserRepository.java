@@ -5,6 +5,7 @@ import com.pablovass.fundamentos.entity.User;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -13,7 +14,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface UserRepository extends JpaRepository<User,Long> {
+//public interface UserRepository extends JpaRepository<User,Long> {
+public interface UserRepository extends PagingAndSortingRepository<User,Long> {
     //ESTO ES JPQL
 
     // este area siempre esta bacia siempre y cuando no tengamos que usar jpql o utilizar o sobrescribir los metodos de las clases estendidas
@@ -69,4 +71,6 @@ public interface UserRepository extends JpaRepository<User,Long> {
     //Optional<User> findByNameOrEmail(@Param("name") String name,
       //                               @Param("email") String email);
 
+
+List<User>findAll();
 }
