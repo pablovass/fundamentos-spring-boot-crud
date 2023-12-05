@@ -1,4 +1,4 @@
-package com.pablovass.web.controller;
+package com.pablovass.controller;
 
 import com.pablovass.persistence.entity.OrderEntity;
 import com.pablovass.service.OrderService;

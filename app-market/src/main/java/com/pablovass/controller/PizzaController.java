@@ -1,4 +1,4 @@
-package com.pablovass.web.controller;
+package com.pablovass.controller;
 
 import com.pablovass.persistence.entity.PizzaEntity;
 import com.pablovass.service.PizzaService;
@@ -27,7 +27,22 @@ public class PizzaController {
     public ResponseEntity<PizzaEntity> get(@PathVariable int idPizza) {
         return ResponseEntity.ok(this.pizzaService.get(idPizza));
     }
-
+    @GetMapping("/available")
+    public ResponseEntity<List<PizzaEntity>> getAvailable() {
+        return ResponseEntity.ok(this.pizzaService.getAvailable());
+    }
+    @GetMapping("/name/{name}")
+    public ResponseEntity<PizzaEntity> getByName(@PathVariable String name) {
+        return ResponseEntity.ok(this.pizzaService.getByName(name));
+    }
+    @GetMapping("/with/{ingredient}")
+    public ResponseEntity<List<PizzaEntity>> getWith(@PathVariable String ingredient) {
+        return ResponseEntity.ok(this.pizzaService.getWith(ingredient));
+    }
+    @GetMapping("/without/{ingredient}")
+    public ResponseEntity<List<PizzaEntity>> getWithOut(@PathVariable String ingredient) {
+        return ResponseEntity.ok(this.pizzaService.getWithOut(ingredient));
+    }
     @PostMapping
     public ResponseEntity<PizzaEntity> add(@RequestBody PizzaEntity pizza) {
         if (pizza.getIdPizza() == null || !this.pizzaService.exists(pizza.getIdPizza())) {
