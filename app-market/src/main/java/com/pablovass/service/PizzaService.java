@@ -10,20 +10,29 @@ import java.util.List;
 @Service
 public class PizzaService {
     private final PizzaRepository pizzaRepository;
+
     @Autowired
-    public PizzaService(PizzaRepository pizzaRepository){
-        this.pizzaRepository=pizzaRepository;
+    public PizzaService(PizzaRepository pizzaRepository) {
+        this.pizzaRepository = pizzaRepository;
     }
-    public List<PizzaEntity> getAll(){
+
+    public List<PizzaEntity> getAll() {
         return this.pizzaRepository.findAll();
     }
-    public PizzaEntity get(int idPizza){
+
+    public PizzaEntity get(int idPizza) {
         return this.pizzaRepository.findById(idPizza).orElse(null);
     }
-    public PizzaEntity save (PizzaEntity pizza){
+
+    public PizzaEntity save(PizzaEntity pizza) {
         return this.pizzaRepository.save(pizza);
     }
-    public boolean exists(int idPizza){
+
+    public boolean exists(int idPizza) {
         return this.pizzaRepository.existsById(idPizza);
+    }
+
+    public void delete(int idPizza) {
+        this.pizzaRepository.deleteById(idPizza);
     }
 }
