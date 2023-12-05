@@ -1,5 +1,6 @@
 package com.pablovass.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.util.ClassUtil;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -32,6 +33,7 @@ public class OrderItemEntity {
 
     @ManyToOne
     @JoinColumn(name = "id_order",referencedColumnName = "id_order", insertable = false,updatable = false)
+    @JsonIgnore
     private  OrderEntity order;
 
     @OneToOne

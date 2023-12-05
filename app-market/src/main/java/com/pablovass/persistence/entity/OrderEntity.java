@@ -1,5 +1,6 @@
 package com.pablovass.persistence.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,11 +36,23 @@ public class OrderEntity {
     @Column(name = "additional_notes", length = 200)
     private String additionalNotes;
 
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY) // le estoy dicienendo que no lo traiga.
     @JoinColumn(name = "id_customer", referencedColumnName = "id_customer", insertable = false, updatable = false)
+    @JsonIgnore // le estoy diciendo que lo ignore en el json
     private CustomerEntity customer;
 
-    @OneToMany(mappedBy = "order")
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<OrderItemEntity> items;
-
+/***
+ * valores por defecto para el fetch
+ * @OneToMany
+ * @ManyToMany
+ * LAZY
+ *
+ * @ManyToOne
+ * @OneToOne
+ * EAGER
+ * 
+ */
+    /
 }
