@@ -11,5 +11,6 @@ public interface PizzaRepository extends ListCrudRepository<PizzaEntity,Integer>
     List<PizzaEntity>findAllByAvailableTrueAndDescriptionContainingIgnoreCase(String description); // SON FORMAS PARECIDAS List<PizzaEntity>queryAllBy   List<PizzaEntity>searchAllBy List<PizzaEntity>getAllBy
 
     List<PizzaEntity>findAllByAvailableTrueAndDescriptionNotContainingIgnoreCase(String description);
+    int countByVeganTrue();
 
 }
