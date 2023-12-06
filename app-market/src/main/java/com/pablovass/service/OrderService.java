@@ -2,6 +2,7 @@ package com.pablovass.service;
 
 import com.pablovass.persistence.entity.OrderEntity;
 import com.pablovass.persistence.repository.OrderRepository;
+import com.pablovass.projection.OrderSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,5 +42,8 @@ public class OrderService {
 
     public List<OrderEntity> getCustomerOrders(String idCustomer){
         return this.orderRepository.findCustomerOrders(idCustomer);
+    }
+    public OrderSummary getSummary(int orderId){
+        return this.orderRepository.findSummary(orderId);
     }
 }
