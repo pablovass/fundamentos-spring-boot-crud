@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -48,10 +49,18 @@ public class PizzaService {
         this.pizzaRepository.deleteById(idPizza);
     }
 
-    public List<PizzaEntity> getAvailable() {
+    public Page<PizzaEntity> getAvailable(int page, int elements,String sortBy,String sortDirection) {
         this.pizzaRepository.countByVeganTrue();
-        return this.pizzaRepository.findAllByAvailableTrueOrderByPrice();
+        Sort sort=Sort.by(Sort.Direction.fromString(sortDirection),sortBy);
+        Pageable pageRequest= PageRequest.of(page,elements, sort);
+
+        // Pageable pageRequest= PageRequest.of(page,elements, Sort.by(sortBy));
+        return this.pizzaPagSortRepository.findByAvailableTrue(pageRequest);
     }
+  // public List<PizzaEntity> getAvailable() {
+  //     this.pizzaRepository.countByVeganTrue();
+  //     return this.pizzaRepository.findAllByAvailableTrueOrderByPrice();
+  // }
 
    // public PizzaEntity getByName(String name) {
    //     return this.pizzaRepository.findAllByAvailableTrueAndNameIgnoreCase(name);
