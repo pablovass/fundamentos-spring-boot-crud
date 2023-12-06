@@ -3,6 +3,7 @@ package com.pablovass.controller;
 import com.pablovass.persistence.entity.PizzaEntity;
 import com.pablovass.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,10 +19,15 @@ public class PizzaController {
         this.pizzaService = pizzaService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<PizzaEntity>> getAll() {
-        return ResponseEntity.ok(this.pizzaService.getAll());
-    }
+//  @GetMapping
+//  public ResponseEntity<List<PizzaEntity>> getAll() {
+//      return ResponseEntity.ok(this.pizzaService.getAll());
+//  }
+@GetMapping
+public ResponseEntity<Page<PizzaEntity>> getAll(@RequestParam(defaultValue = "0")  int page,
+                                                @RequestParam(defaultValue = "0") int elements) {
+    return ResponseEntity.ok(this.pizzaService.getAll(page, elements));
+}
 
     @GetMapping("/{idPizza}")
     public ResponseEntity<PizzaEntity> get(@PathVariable int idPizza) {
