@@ -1,5 +1,6 @@
 package com.pablovass.controller;
 
+import com.pablovass.persistence.dto.UpdatePizzaPriceDto;
 import com.pablovass.persistence.entity.PizzaEntity;
 import com.pablovass.service.PizzaService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -72,6 +73,14 @@ public ResponseEntity<Page<PizzaEntity>> getAll(@RequestParam(defaultValue = "0"
     public ResponseEntity<PizzaEntity> update(@RequestBody PizzaEntity pizza) {
         if (pizza.getIdPizza() != null && this.pizzaService.exists(pizza.getIdPizza())) {
             return ResponseEntity.ok(this.pizzaService.save(pizza));
+        }
+        return ResponseEntity.badRequest().build();
+    }
+    @PatchMapping("/price")
+    public ResponseEntity<Void> updatePrice(@RequestBody UpdatePizzaPriceDto dto) {
+        if (this.pizzaService.exists(dto.getPizzaId())) {
+            this.pizzaService.updatePrice(dto);
+            return ResponseEntity.ok().build();
         }
         return ResponseEntity.badRequest().build();
     }
