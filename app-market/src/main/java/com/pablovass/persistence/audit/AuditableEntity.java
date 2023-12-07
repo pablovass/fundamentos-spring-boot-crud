@@ -1,4 +1,4 @@
-package com.pablovass.persistence.entity;
+package com.pablovass.persistence.audit;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.MappedSuperclass;
