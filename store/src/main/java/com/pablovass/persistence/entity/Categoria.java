@@ -14,9 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 public class Categoria {
 
-    @OneToMany(mappedBy = "categoria")
-    private List<Producto> productos;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_categoria")
@@ -24,4 +21,7 @@ public class Categoria {
 
     private String descripcion;
     private Boolean estado;
+
+    @OneToMany(mappedBy = "categoria")
+    private List<Producto> productos;
 }

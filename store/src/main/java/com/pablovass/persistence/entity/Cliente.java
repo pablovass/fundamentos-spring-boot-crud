@@ -12,10 +12,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class Cliente {
-
-    @OneToMany(mappedBy = "cliente")
-    private List<Compra>compras;
-
     @Id
     private String id;
     private String nombre;
@@ -25,4 +21,7 @@ public class Cliente {
 
     @Column(name="correo_electronico")
     private String correoElectronico;
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Compra> compras;
 }

@@ -14,11 +14,6 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 public class Compra {
-    @ManyToOne
-    @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
-    private Cliente cliente;
-    @OneToMany(mappedBy = "producto")
-    private List<ComprasProducto> productos;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_compra")
@@ -34,4 +29,12 @@ public class Compra {
 
     private String comentario;
     private String estado;
+
+    @ManyToOne
+    @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
+    private Cliente cliente;
+    @OneToMany(mappedBy = "compra")
+    private List<ComprasProducto> productos;
+
+
 }
