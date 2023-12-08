@@ -1,6 +1,6 @@
-package com.pablovass.persistence.entity;
+package com.pablovass.entity;
 
-import com.pablovass.persistence.repository.ProductoRepository;
+import com.pablovass.repository.ProductoRepository;
 import org.springframework.stereotype.Repository;
 import java.util.List;
 import java.util.Optional;

@@ -1,4 +1,4 @@
-package com.pablovass.persistence.entity;
+package com.pablovass.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

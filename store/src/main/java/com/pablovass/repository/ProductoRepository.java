@@ -1,6 +1,6 @@
-package com.pablovass.persistence.repository;
+package com.pablovass.repository;
 
-import com.pablovass.persistence.entity.Producto;
+import com.pablovass.entity.Producto;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
