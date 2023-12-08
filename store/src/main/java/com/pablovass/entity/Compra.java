@@ -14,7 +14,6 @@ import java.util.List;
 @Entity
 @Table(name = "compras")
 public class Compra {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_compra")
@@ -35,7 +34,7 @@ public class Compra {
     @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
     private Cliente cliente;
 
-  //  @OneToMany(mappedBy = "productos")
-  //  private List<ComprasProducto> productos;
+    @OneToMany(mappedBy = "compra", cascade = {CascadeType.ALL})
+    private List<ComprasProducto> productos;
 
 }

@@ -5,16 +5,16 @@ import com.pablovass.entity.Categoria;
 import org.mapstruct.*;
 
 
-@Mapper(componentModel = "spring",uses = {Categoria.class,Category.class})
+@Mapper(componentModel = "spring")
 public interface CategoryMapper {
     @Mappings({
-         @Mapping(source = "idCategoria", target = "categoryId"),
+            @Mapping(source = "idCategoria", target = "categoryId"),
             @Mapping(source = "descripcion", target = "category"),
             @Mapping(source = "estado", target = "active"),
     })
     Category toCategory(Categoria categoria);
 
-    @InheritInverseConfiguration // le dice que le haga la inversa de [ toCategory ]
+    @InheritInverseConfiguration
     @Mapping(target = "productos", ignore = true)
     Categoria toCategoria(Category category);
 }

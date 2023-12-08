@@ -18,4 +18,5 @@ public class ComprasProductoPK implements Serializable {
 
     @Column(name = "id_producto")
     private Integer idProducto;
+
 }

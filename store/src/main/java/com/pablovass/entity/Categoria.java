@@ -7,11 +7,12 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Entity
-@Table(name = "categorias")
+
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table(name = "categorias")
 public class Categoria {
 
     @Id
@@ -24,5 +25,6 @@ public class Categoria {
 
     @OneToMany(mappedBy = "categoria")
     private List<Producto> productos;
+
 
 }
