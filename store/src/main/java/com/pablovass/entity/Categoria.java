@@ -24,4 +24,21 @@ public class Categoria {
 
     @OneToMany(mappedBy = "categoria")
     private List<Producto> productos;
+
+    public Integer getIdCategoria() {
+        return idCategoria;
+    }
+
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    public Boolean getEstado() {
+        return estado;
+    }
+
+    public List<Producto> getProductos() {
+        return productos;
+    }
+
 }

@@ -1,7 +1,6 @@
 package com.pablovass.domain;
 
-import com.pablovass.domain.Category;
-import lombok.Data;
+import lombok.*;
 
 @Data
 public class Product {

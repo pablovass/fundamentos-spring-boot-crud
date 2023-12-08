@@ -1,5 +1,6 @@
 package com.pablovass.domain;
 
+
 import lombok.Data;
 
 @Data
