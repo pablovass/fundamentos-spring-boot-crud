@@ -4,11 +4,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "compras_productos")
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table(name = "compras_productos")
 public class ComprasProducto {
     @EmbeddedId
     private ComprasProductoPK id;
@@ -24,5 +24,6 @@ public class ComprasProducto {
     @ManyToOne
     @JoinColumn(name = "id_producto", insertable = false, updatable = false)
     private Producto producto;
+
 
 }

@@ -5,11 +5,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Entity
-@Table(name = "producto")
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table(name = "productos")
 public class Producto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,4 +35,5 @@ public class Producto {
     @ManyToOne
     @JoinColumn(name = "id_categoria", insertable = false, updatable = false)
     private Categoria categoria;
+
 }

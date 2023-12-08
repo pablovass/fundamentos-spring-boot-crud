@@ -8,12 +8,13 @@ import lombok.Setter;
 import java.time.LocalDateTime;
 import java.util.List;
 
-@Entity
-@Table(name = "compras")
 @Getter
 @Setter
 @NoArgsConstructor
+@Entity
+@Table(name = "compras")
 public class Compra {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_compra")
@@ -33,8 +34,8 @@ public class Compra {
     @ManyToOne
     @JoinColumn(name = "id_cliente", insertable = false, updatable = false)
     private Cliente cliente;
-    @OneToMany(mappedBy = "compra")
-    private List<ComprasProducto> productos;
 
+  //  @OneToMany(mappedBy = "productos")
+  //  private List<ComprasProducto> productos;
 
 }
