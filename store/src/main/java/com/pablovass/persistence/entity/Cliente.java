@@ -4,12 +4,18 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
+
 @Entity
 @Table(name="clientes")
 @Getter
 @Setter
 @NoArgsConstructor
 public class Cliente {
+
+    @OneToMany(mappedBy = "cliente")
+    private List<Compra>compras;
+
     @Id
     private String id;
     private String nombre;

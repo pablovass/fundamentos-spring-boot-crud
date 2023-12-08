@@ -11,6 +11,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class Producto {
+    @ManyToOne
+    @JoinColumn(name = "id_categoria",insertable = false, updatable = false)
+    private Categoria categoria;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_producto")

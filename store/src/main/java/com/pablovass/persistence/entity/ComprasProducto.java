@@ -10,6 +10,14 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class ComprasProducto {
+    @ManyToOne
+    @JoinColumn(name = "id_compra",insertable = false,updatable = false)
+    private  Compra compra;
+
+    @ManyToOne
+    @JoinColumn(name = "id_producto", insertable = false,updatable = false)
+    private  Producto producto;
+
     @EmbeddedId
     private ComprasProductoPK id;
 
