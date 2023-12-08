@@ -1,6 +1,7 @@
-package com.pablovass.repository;
+package com.pablovass.service;
 
 import com.pablovass.domain.Product;
+import com.pablovass.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
