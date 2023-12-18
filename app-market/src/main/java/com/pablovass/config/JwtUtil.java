@@ -2,19 +2,22 @@ package com.pablovass.config;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import org.springframework.stereotype.Component;
 
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
+@Component
 public class JwtUtil {
-    private static String SECRET_KEY=  "pablovass_key";
+    private static String SECRET_KEY = "pl4tz1_p1zz4";
     private static Algorithm ALGORITHM = Algorithm.HMAC256(SECRET_KEY);
 
-    private String create(String username){
+    public String create(String username) {
         return JWT.create()
                 .withSubject(username)
-                .withIssuer("pablovass-market")
-                .withExpiresAt(new Date(System.currentTimeMillis()+ TimeUnit.DAYS.toMillis(15)))
+                .withIssuer("pablovass-pizza")
+                .withIssuedAt(new Date())
+                .withExpiresAt(new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(15)))
                 .sign(ALGORITHM);
     }
 }
