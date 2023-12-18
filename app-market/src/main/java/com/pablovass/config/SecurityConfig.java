@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+
 @Configuration
 public class SecurityConfig {
     // @Bean   con este metodo liberamos de resposabilidad la dependecia de spring security
@@ -33,7 +34,7 @@ public class SecurityConfig {
                 .authorizeRequests()
                 .requestMatchers(HttpMethod.GET, "/api/*").permitAll()///api/* mientras mas * mas niveles despues de una barra
                 .requestMatchers(HttpMethod.GET, "/api/**").hasRole("ADMIN") // ESTA REGLAS VAS SE PERMITIDO SOLO CON ADMIN
-                .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("ADMIN","CUSTOMER")
+                .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("ADMIN", "CUSTOMER")
                 .requestMatchers(HttpMethod.PUT).denyAll() //por mas que tenga basic autorization no va a poder haceder
                 .anyRequest()
                 .authenticated()
@@ -42,6 +43,7 @@ public class SecurityConfig {
         return http.build();
     }
 
+    //ESTE BEAN TIENE LAS CREDENCIALES PARA MI SPRING SECURITY
     @Bean
     public UserDetailsService memoryUsers() {
         UserDetails admin = User.builder()
@@ -56,9 +58,10 @@ public class SecurityConfig {
                 .roles("CUSTOMER")
                 .build();
 
-        return new InMemoryUserDetailsManager(admin,customer);
+        return new InMemoryUserDetailsManager(admin, customer);
     }
 
+    //usamos BCrypt proque de lo contrario spring security no te deja compilarlo.
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
