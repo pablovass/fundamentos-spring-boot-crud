@@ -1,6 +1,7 @@
 package com.pablovass.service;
 
 import com.pablovass.persistence.entity.UserEntity;
+import com.pablovass.persistence.entity.UserRoleEntity;
 import com.pablovass.persistence.repository.UserRepository;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,10 +9,12 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-/** lo mas convieniente, lo que tenga que ver con usuarios y permisos manejarlo desde un app diferente, a modo ilustrativo lo dejo aca */
+/**
+ * lo mas convieniente, lo que tenga que ver con usuarios y permisos manejarlo desde un app diferente, a modo ilustrativo lo dejo aca
+ */
 @Service
 public class UserSecurityService implements UserDetailsService {
-    private  final UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserSecurityService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -19,13 +22,16 @@ public class UserSecurityService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity userEntity=this.userRepository.findById(username)
-                .orElseThrow(()->new UsernameNotFoundException("user "+ username+" not found"));
+        UserEntity userEntity = this.userRepository.findById(username)
+                .orElseThrow(() -> new UsernameNotFoundException("user " + username + " not found"));
+
+        String[] roles = userEntity.getRoles().stream().map(UserRoleEntity::getRole).toArray(String[]::new);
 
         return User.builder()
                 .username(userEntity.getUsername())
                 .password(userEntity.getPassword())
-                .roles("ADMIN")
+                //.roles("ADMIN")
+                .roles(roles)
                 .accountLocked(userEntity.getLocked())
                 .disabled(userEntity.getDisabled())
                 .build();
