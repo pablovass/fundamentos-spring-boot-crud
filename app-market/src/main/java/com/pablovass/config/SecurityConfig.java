@@ -1,31 +1,16 @@
 package com.pablovass.config;
-
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-//LOS QUE ESTAN COMENTADO SON PORQUE HACE REFERENCIA A METODO CONMETADO
-//import org.springframework.security.core.userdetails.User;
-//import org.springframework.security.core.userdetails.UserDetails;
-//import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-//import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
-    // @Bean   con este metodo liberamos de resposabilidad la dependecia de spring security
-//public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-//    http
-//            .authorizeRequests()
-//            .anyRequest()
-//            .permitAll();
-//
-//    return http.build();
-//}
-
+// al generar los permisos tener encuenta la lectura de la clase ya que el orden da prioridad a la gerarquia
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -33,10 +18,11 @@ public class SecurityConfig {
                 .csrf(csrf -> csrf.disable()) //el filtro que bloquea los put
                 .cors(Customizer.withDefaults())
                 .authorizeRequests()
-                .requestMatchers(HttpMethod.GET, "/api/*").permitAll()///api/* mientras mas * mas niveles despues de una barra
-                .requestMatchers(HttpMethod.GET, "/api/**").hasRole("ADMIN") // ESTA REGLAS VAS SE PERMITIDO SOLO CON ADMIN
-                .requestMatchers(HttpMethod.GET, "/api/**").hasAnyRole("ADMIN", "CUSTOMER")
-                .requestMatchers(HttpMethod.PUT).denyAll() //por mas que tenga basic autorization no va a poder haceder
+                .requestMatchers(HttpMethod.GET, "/api/pizzas/**").hasAnyRole("ADMIN")
+                .requestMatchers(HttpMethod.POST, "/api/pizzas/**").hasRole("ADMIN") // ESTA REGLAS VAS SE PERMITIDO SOLO CON ADMIN
+                .requestMatchers(HttpMethod.PUT).hasRole("ADMIN")
+                .requestMatchers("/api/orders/ramdon").hasAuthority("ramdom_order")// le estoy diciendo los usurios que tengan ramdom_oder como permiso podran ver esa peticion
+                .requestMatchers("/api/orders/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -44,26 +30,6 @@ public class SecurityConfig {
         return http.build();
     }
 
-    //ESTE BEAN TIENE LAS CREDENCIALES PARA MI SPRING SECURITY
-    //no se usa porque tengo la clase userSecurityService que hace exacatamente lo mismo que este metodo pero lo va a buscar a la base de datos
-  // @Bean
-  // public UserDetailsService memoryUsers() {
-  //     UserDetails admin = User.builder()
-  //             .username("admin")
-  //             .password(passwordEncoder().encode("admin")) // spring no te permite poner password por hacemos uso del encoder
-  //             .roles("ADMIN")
-  //             .build();
-
-  //     UserDetails customer = User.builder()
-  //             .username("customer")
-  //             .password(passwordEncoder().encode("customer2121")) // spring no te permite poner password por hacemos uso del encoder
-  //             .roles("CUSTOMER")
-  //             .build();
-
-  //     return new InMemoryUserDetailsManager(admin, customer);
-  // }
-
-    //usamos BCrypt proque de lo contrario spring security no te deja compilarlo.
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
