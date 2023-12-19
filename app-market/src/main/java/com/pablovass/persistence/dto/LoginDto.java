@@ -8,3 +8,4 @@ public class LoginDto {
     private String password;
 
 }
+// https://jwt.io/
